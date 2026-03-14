@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Jacnspa</title>
+	<link rel="stylesheet" href="bootstrap-4.1.3-dist/css/bootstrap.min.css">
+	<link rel="icon" type="image/ico" href="favicon.ico">
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.css" />
+
+	<link rel="stylesheet" href="style.css">
+	<link rel="stylesheet" href="css/fixed.css">
+	
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/7.0.1/css/brands.min.css" integrity="sha512-WxpJXPm/Is1a/dzEdhdaoajpgizHQimaLGL/QqUIAjIihlQqlPQb1V9vkGs9+VzXD7rgI6O+UsSKl4u5K36Ydw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
+<style>
+
+	/* MOBILE: center navbar items when burger is open */
+@media (max-width: 767px) {
+  .navbar-collapse {
+    text-align: center;
+  }
+
+  .navbar-nav {
+    margin: 0 auto;
+  }
+
+  .navbar-nav .nav-item {
+    float: none;
+  }
+
+  .navbar-nav .nav-link {
+    display: inline-block;
+    padding: 10px 0;
+  }
+}
+
+	.lang-switcher {
+	display: flex;
+	gap: 6px;
+	align-items: center;
+}
+
+.lang-btn {
+	/* Bootstrap override */
+	background-color: transparent !important;
+	border: 1px solid rgba(255,255,255,0.4);
+	color: #ffffff;
+
+	font-size: 12px;
+	font-weight: 600;
+	padding: 5px 10px;
+	border-radius: 20px;
+	cursor: pointer;
+
+	transition: all 0.25s ease;
+	backdrop-filter: blur(6px);
+}
+
+.lang-btn:hover {
+	background-color: #ffffff !important;
+	color: #000000;
+	transform: translateY(-1px);
+}
+
+.lang-btn.active {
+	background-color: #ffffff !important;
+	color: #000000 !important;
+	border-color: #ffffff;
+	box-shadow: 0 4px 12px rgba(255,255,255,0.25);
+}
+/* default – desktop untouched */
+.lang-switcher {
+	display: flex;
+	gap: 6px;
+	align-items: center;
+}
+
+/* ONLY mobile */
+@media (max-width: 767px) {
+	.lang-switcher {
+		position: absolute;
+		top: 12px;
+		right: 60px; /* burger-ის გვერდით */
+		z-index: 1051;
+	}
+
+	/* collapse-ში რომ არ ჩამოვარდეს */
+	.navbar-collapse {
+		position: static;
+	}
+}
+/* desktop language buttons */
+.lang-switcher {
+	display: flex;
+	gap: 6px;
+	align-items: center;
+}
+
+/* MOBILE dropdown base */
+.lang-dropdown-mobile {
+	display: none;
+	position: relative;
+}
+
+.lang-drop-btn {
+	background: transparent;
+	border: 1px solid rgba(255,255,255,0.4);
+	color: #fff;
+	font-size: 12px;
+	font-weight: 600;
+	padding: 5px 10px;
+	border-radius: 20px;
+	cursor: pointer;
+}
+
+.lang-drop-menu {
+	position: absolute;
+	top: 110%;
+	left: 50%;
+	transform: translateX(-50%);
+	background: #fff;
+	border-radius: 8px;
+	min-width: 60px;
+	display: none;
+	box-shadow: 0 6px 18px rgba(0,0,0,0.25);
+	z-index: 1050;
+}
+
+.lang-drop-menu a {
+	display: block;
+	padding: 6px 10px;
+	font-size: 12px;
+	font-weight: 600;
+	color: #000;
+	text-decoration: none;
+	text-align: center;
+}
+
+.lang-drop-menu a:hover {
+	background: #f2f2f2;
+}
+
+/* open state */
+.lang-dropdown-mobile.open .lang-drop-menu {
+	display: block;
+}
+
+/* ONLY MOBILE */
+@media (max-width: 767px) {
+	.lang-dropdown-mobile {
+		display: block;
+		margin: 0 auto;
+	}
+
+	.lang-switcher {
+		display: none !important;
+	}
+}
+
+
+</style>
+</head>
+
+<body data-spy="scroll" data-target="#navbarResponsive">
+
+<!---- Start Home Section -->
+
+<div id="home">
+
+	<!-- Navigation-->
+	<nav class="navbar navbar-expand-md navbar-dark bg-dark fixed-top">
+
+	<!-- LOGO -->
+	<a class="navbar-brand" href="#">
+		<img src="img/logo2.png" alt="logo">
+	</a>
+
+	<!-- MOBILE LANGUAGE DROPDOWN (logo & burger შორის) -->
+	<div class="lang-dropdown-mobile">
+		<button class="lang-drop-btn" type="button">
+			<span id="currentLang">EN</span>
+			<i class="fa fa-chevron-down ml-1"></i>
+		</button>
+
+		<div class="lang-drop-menu">
+			<a href="#" onclick="setLangFromDropdown('en'); return false;">EN</a>
+			<a href="#" onclick="setLangFromDropdown('ka'); return false;">KA</a>
+		</div>
+	</div>
+
+	<!-- BURGER -->
+	<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarResponsive">
+		<span class="navbar-toggler-icon"></span>
+	</button>
+
+	<!-- COLLAPSE MENU -->
+	<div class="collapse navbar-collapse" id="navbarResponsive">
+		<ul class="navbar-nav ml-auto">
+			<li class="nav-item"><a class="nav-link" href="#home" data-i18n="nav_home">Home</a></li>
+			<li class="nav-item"><a class="nav-link" href="#course" data-i18n="nav_programs">Programs</a></li>
+			<li class="nav-item"><a class="nav-link" href="#features" data-i18n="nav_features">Features</a></li>
+			<li class="nav-item"><a class="nav-link" href="#resources" data-i18n="nav_services">Services</a></li>
+			<li class="nav-item"><a class="nav-link" href="#clients" data-i18n="nav_clients">Clients</a></li>
+			<li class="nav-item"><a class="nav-link" href="#contact" data-i18n="nav_contact">Contact</a></li>
+
+			<!-- DESKTOP LANGUAGE BUTTONS (უცვლელი) -->
+			<li class="nav-item lang-switcher ml-3">
+				<a href="#" class="lang-btn active" data-lang="en" onclick="loadLanguage('en'); return false;">EN</a>
+				<a href="#" class="lang-btn" data-lang="ka" onclick="loadLanguage('ka'); return false;">KA</a>
+			</li>
+		</ul>
+	</div>
+
+</nav>
+
+
+	<!-- End Navigation -->
+
+	<!-- Start Landing Page Section-->
+	<div class="landing">
+		<div class="home-wrap">
+			<div class="home-inner"></div>
+		</div>
+	</div>
+
+	<div class="caption text-center">
+		<h1 data-i18n="hero_title">Welcome to Jacnspa</h1>
+<h3 data-i18n="hero_subtitle">Relax • Restore • Rejuvenate</h3>
+
+		
+	</div>
+	<!-- End Landing Page Section-->
+
+</div>
+<!-- End Home -->
+
+<!---- Start Course Section -->
+
+<div id="course" class="offset">
+    <div class="container py-5">
+        <div class="row align-items-center">
+
+            <!-- LEFT: TEXT -->
+            <div class="col-md-6" data-aos="fade-right">
+               <h1 style="color:#34687a" data-i18n="about_title">About Us</h1>
+                <p class="lead" data-i18n="about_text">
+                  Welcome to Jacnspa: Your Ultimate Wellness Retreat
+At Jacnspa, we provide a luxurious wellness experience designed to rejuvenate your body and mind. Whether you’re looking to unwind, enjoy a soothing massage, or stay active with our unique offerings, Jacnspa is the perfect destination for relaxation and self-care.
+At Jacnspa, we combine comfort and wellness in a peaceful, luxurious environment to ensure you leave feeling rejuvenated and refreshed. Experience the ultimate relaxation – visit Jacnspa today!
+                </p>
+               
+            </div>
+
+            <!-- RIGHT: IMAGE -->
+            <div class="col-md-6 text-center" data-aos="fade-left">
+                <img src="img/logo2.png" alt="Massage" class="img-fluid rounded-circle shadow" >
+            </div>
+
+        </div>
+    </div>
+</div>
+
+
+<!-- End Course -->
+
+<!---- Start Features Section -->
+
+<div id="features" class="offset">
+
+	<div class="jumbotron">
+		<div class="narrow text-center">
+			<div class="col-12" data-aos="fade-up">
+<h3 class="heading" data-i18n="features_title">Features</h3>
+				<div class="heading-underline"></div>
+			</div>
+
+			<div class="row text-center">
+
+				<div class="col-md-4" data-aos="fade-right">
+					<div class="feature">
+						<i class="fas fa-swimming-pool fa-4x"></i>
+
+
+						<h3 data-i18n="feature_pool_title">Indoor Pool</h3>
+						<p data-i18n="feature_pool_text"> Immerse yourself in our heated indoor pool, providing a peaceful setting for year-round relaxation and a refreshing swim at any time of the year.</p>
+					</div>
+				</div>
+
+				<div class="col-md-4" data-aos="fade-down">
+					<div class="feature">
+<i class="fas fa-fire fa-4x"></i>
+
+						<h3 data-i18n="feature_sauna_title">Saunas</h3>
+						<p data-i18n="feature_sauna_text"> Choose from two exceptional sauna experiences</p>
+					</div>
+				</div>
+
+				<div class="col-md-4" data-aos="fade-left">
+					<div class="feature">
+<i class="fas fa-thermometer-three-quarters fa-4x"></i>
+						<h3 data-i18n="feature_dry_sauna_title">Dry Sauna</h3>
+						<p data-i18n="feature_dry_sauna_text">Enjoy the traditional warmth and soothing heat for detoxification and relaxation.</p>
+					</div>
+				</div>
+				<div class="col-md-4" data-aos="fade-down">
+					<div class="feature">
+<i class="fas fa-hot-tub fa-4x"></i>
+						<h3 data-i18n="feature_finnish_sauna_title">Finnish Sauna:</h3>
+						<p data-i18n="feature_finnish_sauna_text"> Experience a more intense heat, perfect for relieving muscle tension and revitalizing your body.</p>
+					</div>
+				</div>
+				
+
+			</div> 
+		</div>
+	</div>
+
+</div>
+
+<div id="gallery" class="offset container py-5">
+   <h3 class="heading text-center" data-i18n="gallery_title">Calm atmosphere
+
+    </h3>
+    <div class="heading-underline mb-4"></div>
+
+    <div class="row">
+        <div class="col-sm-6 col-md-4 mb-4" data-aos="fade-up" data-aos-delay="100">
+            <a href="gallery/1.jpg" class="glightbox" data-gallery="spa-gallery" data-title="Gallery Image 1">
+                <img src="gallery/1.jpg" class="img-fluid rounded shadow-sm" alt="Gallery Image 1">
+            </a>
+        </div>
+
+        <div class="col-sm-6 col-md-4 mb-4" data-aos="fade-up" data-aos-delay="200">
+            <a href="gallery/2 (2).jpg" class="glightbox" data-gallery="spa-gallery" data-title="Gallery Image 2">
+                <img src="gallery/2 (2).jpg" class="img-fluid rounded shadow-sm" alt="Gallery Image 2">
+            </a>
+        </div>
+
+        <div class="col-sm-6 col-md-4 mb-4" data-aos="fade-up" data-aos-delay="300">
+            <a href="gallery/3.jpg" class="glightbox" data-gallery="spa-gallery" data-title="Gallery Image 3">
+                <img src="gallery/3.jpg" class="img-fluid rounded shadow-sm" alt="Gallery Image 3">
+            </a>
+        </div>
+
+        <div class="col-sm-6 col-md-4 mb-4" data-aos="fade-up" data-aos-delay="400">
+            <a href="gallery/4 (2).jpg" class="glightbox" data-gallery="spa-gallery" data-title="Gallery Image 4">
+                <img src="gallery/4 (2).jpg" class="img-fluid rounded shadow-sm" alt="Gallery Image 4">
+            </a>
+        </div>
+
+        <div class="col-sm-6 col-md-4 mb-4" data-aos="fade-up" data-aos-delay="500">
+            <a href="gallery/5 (2).jpg" class="glightbox" data-gallery="spa-gallery" data-title="Gallery Image 5">
+                <img src="gallery/5 (2).jpg" class="img-fluid rounded shadow-sm" alt="Gallery Image 5">
+            </a>
+        </div>
+
+        <div class="col-sm-6 col-md-4 mb-4" data-aos="fade-up" data-aos-delay="600">
+            <a href="gallery/6.JPG" class="glightbox" data-gallery="spa-gallery" data-title="Gallery Image 6">
+                <img src="gallery/6.JPG" class="img-fluid rounded shadow-sm" alt="Gallery Image 6">
+            </a>
+        </div>
+      
+    </div>
+     <div class="text-center">
+		
+		<a style="background-color: #34687a;" class="btn btn-outline-light btn-lg" data-i18n="gallery_more" href="gallery.html">More Photos</a>
+	</div>
+
+</div>
+
+<!-- GLightbox CSS & JS -->
+<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/glightbox/dist/css/glightbox.min.css" />
+<script src="https://cdn.jsdelivr.net/npm/glightbox/dist/js/glightbox.min.js"></script>
+
+<!-- GLightbox JS ინიციალიზაცია -->
+<script>
+const lightbox = GLightbox({
+    selector: '.glightbox',
+    touchNavigation: true,
+    loop: true,
+    zoomable: true,
+    openEffect: 'fade',
+    closeEffect: 'fade',
+    slideEffect: 'slide',
+
+    thumbnails: true,     // ქვემოთ პატარა ფოტოები
+    slideInfo: false      // თეთრი ბარი და ტექსტი გაქრება
+});
+</script>
+
+
+<!-- Thumbnails ზომების მორგება CSS-ით -->
+
+
+
+
+<!-- End Gallery Section -->
+
+<!-- End Gallery Section -->
+
+
+<!---- Start Resources Section -->
+
+<div id="resources" class="offset">
+	<div class="fixed-background">
+
+		<div class="row dark text-center"> 
+
+			<div class="col-12" data-aos="fade-up">
+				<h3 class="heading" data-i18n="services_title">Extra Spa Services</h3>
+				<div class="heading-underline"></div>
+			</div>
+
+			<div class="col-md-4" data-aos="fade-right">
+				<h3 data-i18n="service_vip_title">VIP Room with Jacuzzi & Massage</h3>
+				<div class="feature">	<i class="fas fa-hot-tub fa-3x"></i>
+</div>
+				<p data-i18n="service_vip_text">Treat yourself to a luxurious experience in our VIP room, featuring a private Jacuzzi and tailored massage services, offering the perfect escape for ultimate relaxation.</p>
+			</div>
+
+		<div class="col-md-4" data-aos="fade-down">
+			 <h3 data-i18n="service_massage_title"> Separate Massage Room </h3>
+			 <div class="feature">
+			 	<i class="fas fa-spa fa-3x"></i>
+
+			 </div>
+			 <p data-i18n="service_massage_text"> Step into our dedicated massage room for a peaceful, therapeutic experience, with a range of treatments designed to release stress and refresh your senses. </p>
+			</div>
+
+			<div class="col-md-4" data-aos="fade-left">
+				<h3 data-i18n="service_aqua_title">Aqua Aerobics</h3>
+				<div class="feature"><i class="fas fa-swimmer fa-3x"></i>
+</div>
+				<p data-i18n="service_aqua_text">Get active with our fun and effective aqua aerobics classes for both adults and kids. Led by skilled trainers, these sessions provide a full-body workout that’s low-impact and suitable for all ages.</p>
+			</div>
+	<div class="col-md-4" data-aos="fade-down">
+			 <h3 data-i18n="service_bar_title"> Bar with Cocktails, Food, and Desserts</h3>
+			 <div class="feature">
+			 	<i class="fas fa-cocktail fa-3x"></i>
+
+
+			 </div>
+			<p data-i18n="service_bar_text"> After your wellness session, relax and recharge at our bar, where you can enjoy a selection of refreshing cocktails, delicious food, and tempting desserts. Perfect for a laid-back moment with family or friends.</p>
+			</div>
+		</div> 
+		
+
+		<div class="fixed-wrap">
+			<div class="fixed"></div>
+		</div>
+
+	</div>
+</div>
+
+<!-- End Resources -->
+
+<!---- Start Clients Section -->
+
+<div id="clients" class="offset">
+
+	<div class="jumbotron">
+
+		<div class="col-12 text-center">
+			<h3 class="heading" data-i18n="clients_title">Clients</h3>
+			<div class="heading-underline"></div>
+		</div>
+
+		<div class="row">
+
+			<div class="col-md-6 clients" data-aos="fade-right">
+				<div class="row">
+					<div class="col-md-4">
+						<img src="img/client3.jpg">
+					</div>
+					<div class="col-md-8">
+						<blockquote>
+							<i class="fas fa-quote-left" data-aos="fade-right"></i>
+						<p data-i18n="client1_text">This spa has completely changed my wellness routine. Professional therapists and a peaceful atmosphere every time.</p>	
+							<hr class="clients-hr">
+							<cite>— Emily, Regular Client</cite>
+						</blockquote>
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6 clients" data-aos="fade-left">
+				<div class="row">
+					<div class="col-md-4">
+						<img src="img/client4.JPG">
+					</div>
+					<div class="col-md-8">
+						<blockquote>
+							<i class="fas fa-quote-left" data-aos="fade-left"></i>
+							The perfect place to relax after a long day. Their massages helped my back pain disappear completely.
+							<hr class="clients-hr">
+							<cite>— Laura, Fitness Coach</cite>
+						</blockquote>
+					</div>
+				</div>
+			</div>
+
+		</div>
+
+	</div>
+
+	<div class="col-12 narrow text-center">
+       <p class="lead" data-i18n="location" >
+        <i class="fas fa-map-marker-alt" style="color:#34687a; margin-right:8px;"></i>
+       Location
+    </p>
+
+    <div class="map-responsive">
+        <iframe 
+            src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3697.82671287825!2d44.8247048!3d41.6775493!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x40440d005077b5ed%3A0x15b099a9040c237f!2sJACNSPA!5e1!3m2!1sen!2sge!4v1764858504897!5m2!1sen!2sge" 
+            allowfullscreen="" 
+            loading="lazy" 
+            referrerpolicy="no-referrer-when-downgrade">
+        </iframe>
+    </div>
+</div>
+
+
+</div>
+
+<!-- End Clients -->
+
+<!---- Start Contact Section -->
+
+<div id="contact" class="offset">
+
+<footer>
+    <div class="row justify-content-center text-center text-md-left">
+
+        <!-- LEFT: LOGO + TEXT -->
+        <div class="col-md-6 mb-4">
+            <img src="img/logo2.png" class="mb-3">
+            <p >
+                Our team of licensed massage <br> therapists is dedicated <br> to helping your body heal, <br>
+                relax, and rejuvenate.
+            </p>
+        </div>
+
+        <!-- RIGHT: CONTACT INFO -->
+        <div class="col-md-4 mb-4 contact-right">
+            <strong>Contact Info</strong>
+       <p>
+    <i class="fa fa-phone" style="font-size:15px; margin-right:8px;"></i>
+    (+995)591004404
+    <br>
+    <i class="fa fa-envelope" style="font-size:15px; margin-right:8px;"></i>
+    Info@jacnspa.com
+</p>
+
+            <a href="https://www.facebook.com/share/17Ttpp4rZy/?mibextid=wwXIfr" target="_blank">
+                <i class="fab fa-facebook-square fa-2x mr-2"></i>
+            </a>
+
+            <!-- TikTok -->
+            <a href="https://www.tiktok.com/@jacnspa?_r=1&_t=ZS-91uVgdnc93f" target="_blank">
+                <svg xmlns="http://www.w3.org/2000/svg" width="28" height="28"
+                     viewBox="0 0 256 256" style="margin-right:10px;">
+                    <path fill="currentColor"
+                          d="M203 80a66 66 0 0 1-38-12v78a61 61 0 1 1-52-60v32a30 30 0 1 0 21 29V0h31a38 38 0 0 0 38 38Z"/>
+                </svg>
+            </a>
+
+            <a href="https://www.instagram.com/jacnspa?igsh=MW90cjYyaDczaW5nZg==" target="_blank">
+                <i class="fab fa-instagram fa-2x"></i>
+            </a>
+        </div>
+		
+
+        <div class="col-12 text-center">
+            <hr class="socket">
+            &copy; Jacnspa 
+        </div>
+    </div>
+</footer>
+
+</div>
+<button id="backToTop">
+    <i class="fa fa-arrow-up"></i>
+</button>
+
+<!-- End Contact -->
+
+<!-- Scripts -->
+ <script>
+    const topBtn = document.getElementById("backToTop");
+
+    window.addEventListener("scroll", function() {
+        if (window.pageYOffset > 300) {
+            topBtn.classList.add("show");
+        } else {
+            topBtn.classList.remove("show");
+        }
+    });
+
+    topBtn.addEventListener("click", function() {
+        window.scrollTo({
+            top: 0,
+            behavior: "smooth"
+        });
+    });
+</script>
+<!-- აქტიური ენა  -->
+ <script>
+	function loadLanguage(lang) {
+	document.querySelectorAll('.lang-btn').forEach(btn => {
+		btn.classList.remove('active');
+	});
+
+	document
+		.querySelector(`.lang-btn[onclick="loadLanguage('${lang}')"]`)
+		.classList.add('active');
+
+	// აქ შენი i18n ლოგიკა
+}
+
+ </script>
+
+<script src="https://cdn.jsdelivr.net/npm/aos@2.3.4/dist/aos.js"></script>
+<script>
+  AOS.init({
+    duration: 1000,   // ანიმაციის სისწრაფე (1 წმ)
+    once: true        // მხოლოდ ერთხელ შესრულდეს
+  });
+</script>
+
+<script>
+	const langDropdown = document.querySelector('.lang-dropdown-mobile');
+const langBtn = document.querySelector('.lang-drop-btn');
+const currentLang = document.getElementById('currentLang');
+
+langBtn.addEventListener('click', () => {
+	langDropdown.classList.toggle('open');
+});
+
+function setLangFromDropdown(lang) {
+	currentLang.innerText = lang.toUpperCase();
+	langDropdown.classList.remove('open');
+	loadLanguage(lang);
+}
+
+</script>
+
+<script src="js/jquery-3.3.1.min.js"></script>
+<script src="bootstrap-4.1.3-dist/js/bootstrap.min.js"></script>
+<script src="js/lang.js"></script>
+
+<script src="https://use.fontawesome.com/releases/v5.5.0/js/all.js"></script>
+
+</body>
+</html>

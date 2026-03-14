@@ -1,0 +1,57 @@
+{
+  "nav_home": "Home",
+  "nav_programs": "Programs",
+  "nav_features": "Features",
+  "nav_services": "Services",
+  "nav_clients": "Clients",
+  "nav_contact": "Contact",
+
+  "hero_title": "Welcome to Jacnspa",
+  "hero_subtitle": "Relax • Restore • Rejuvenate",
+
+  "about_title": "About Us",
+  "about_text": "Welcome to Jacnspa: Your Ultimate Wellness Retreat. At Jacnspa, we provide a luxurious wellness experience designed to rejuvenate your body and mind. Whether you’re looking to unwind, enjoy a soothing massage, or stay active with our unique offerings, Jacnspa is the perfect destination for relaxation and self-care. At Jacnspa, we combine comfort and wellness in a peaceful, luxurious environment to ensure you leave feeling rejuvenated and refreshed. Experience the ultimate relaxation – visit Jacnspa today!",
+
+  "features_title": "Features",
+  "feature_pool_title": "Indoor Pool",
+  "feature_pool_text": "Immerse yourself in our heated indoor pool, providing a peaceful setting for year-round relaxation and a refreshing swim at any time of the year.",
+
+  "feature_sauna_title": "Saunas",
+  "feature_sauna_text": "Choose from two exceptional sauna experiences",
+
+  "feature_dry_sauna_title": "Dry Sauna",
+  "feature_dry_sauna_text": "Enjoy the traditional warmth and soothing heat for detoxification and relaxation.",
+
+  "feature_finnish_sauna_title": "Finnish Sauna",
+  "feature_finnish_sauna_text": "Experience a more intense heat, perfect for relieving muscle tension and revitalizing your body.",
+
+  "gallery_title": "Calm atmosphere",
+  "gallery_more": "More Photos",
+
+  "services_title": "Extra Spa Services",
+
+  "service_vip_title": "VIP Room with Jacuzzi & Massage",
+  "service_vip_text": "Treat yourself to a luxurious experience in our VIP room, featuring a private Jacuzzi and tailored massage services, offering the perfect escape for ultimate relaxation.",
+
+  "service_massage_title": "Separate Massage Room",
+  "service_massage_text": "Step into our dedicated massage room for a peaceful, therapeutic experience, with a range of treatments designed to release stress and refresh your senses.",
+
+  "service_aqua_title": "Aqua Aerobics",
+  "service_aqua_text": "Get active with our fun and effective aqua aerobics classes for both adults and kids. Led by skilled trainers, these sessions provide a full-body workout that’s low-impact and suitable for all ages.",
+
+  "service_bar_title": "Bar with Cocktails, Food, and Desserts",
+  "service_bar_text": "After your wellness session, relax and recharge at our bar, where you can enjoy a selection of refreshing cocktails, delicious food, and tempting desserts. Perfect for a laid-back moment with family or friends.",
+
+  "clients_title": "Clients",
+
+  "client1_text": "This spa has completely changed my wellness routine. Professional therapists and a peaceful atmosphere every time.",
+  "client1_name": "— Emily, Regular Client",
+
+  "client2_text": "The perfect place to relax after a long day. Their massages helped my back pain disappear completely.",
+  "client2_name": "— Laura, Fitness Coach",
+
+  "location": "Location",
+
+  "footer_text": "Our team of licensed massage therapists is dedicated to helping your body heal, relax, and rejuvenate.",
+  "contact_title": "Contact Info"
+}
